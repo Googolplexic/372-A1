@@ -37,13 +37,34 @@ function App() {
     }));
   }
 
+  const selectedNote = notes.find(n => n.id === selectedNoteId);
+
   return (
     <>
       <NoteEditor onSave={handleSaveNote} />
-      <NoteList notes={[]} onDelete={handleDeleteNote}
-        onSelectNote={function (noteId: number): void {
-          throw new Error('Function not implemented.');
-        }} />
+      <NoteList
+        notes={notes}
+        onDelete={handleDeleteNote}
+        onSelectNote={(noteId) => setSelectedNoteId(noteId)} />
+      
+      {selectedNote && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <h2>{selectedNote.title}</h2>
+            <p>{selectedNote.body}</p>
+            <small>{new Date(selectedNote.createdAt).toLocaleString()}</small>
+
+            <button onClick={() => setSelectedNoteId(null)}>Close</button>
+
+            <button onClick={() => {
+              handleDeleteNote(selectedNote.id);
+              setSelectedNoteId(null);
+            }}>
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
     </>
   )
 }

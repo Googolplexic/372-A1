@@ -13,7 +13,7 @@ export default function NoteList({ notes, onDelete, onSelectNote }: NoteListProp
     <>
       {notes.map((note: Note) => (
         <div key={note.id} style={{ border: "1px solid gray", padding: "10px", margin: "10px" }}>
-          <h2 key={note.id}>{note.title}</h2>
+          <h2 onClick={() => onSelectNote(note.id)} key={note.id}>{note.title}</h2>
           <button onClick={() => onDelete(note.id)}>Delete</button>
         </div >
       ))}

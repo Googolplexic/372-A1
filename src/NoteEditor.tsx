@@ -1,4 +1,5 @@
-import { useState, SyntheticEvent } from "react";
+import { useState } from "react";
+import type { SyntheticEvent } from "react";
 
 interface NoteEditorProps {
   onSave: (title: string, body: string) => void
