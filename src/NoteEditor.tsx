@@ -12,7 +12,6 @@ export default function NoteEditor({ onSave }: NoteEditorProps) {
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     onSave(title, body)
     setTitle("");
     setBody("");
