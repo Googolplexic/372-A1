@@ -7,15 +7,23 @@ interface NoteListProps {
 }
 
 export default function NoteList({ notes, onDelete, onSelectNote }: NoteListProps) {
-
-
   return (
     <>
       {notes.map((note: Note) => (
-        <div key={note.id} style={{ border: "1px solid gray", padding: "10px", margin: "10px" }}>
-          <h2 onClick={() => onSelectNote(note.id)} key={note.id}>{note.title}</h2>
-          <button onClick={() => onDelete(note.id)}>Delete</button>
-        </div >
+        <div
+          key={note.id}
+          className="note-card"
+          onClick={() => onSelectNote(note.id)}>
+          <h2>{note.title}</h2>
+          <button
+            className="danger"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete(note.id);
+            }}>
+            Delete
+          </button>
+        </div>
       ))}
     </>
   );
