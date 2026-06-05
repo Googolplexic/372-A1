@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import type { Note } from './types';
 import NoteEditor from './NoteEditor';
 import NoteList from './NoteList';
@@ -12,12 +12,13 @@ function App() {
     }
     return [];
   });
+
+  const nextId = useRef(notes.length > 0 ? Math.max(...notes.map(n => n.id)) + 1 : 1);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
 
   const handleSaveNote = (title: string, body: string) => {
-    const newId = notes.length > 0 ? Math.max(...notes.map(n => n.id)) + 1 : 1;
     const newNote: Note = {
-      id: newId,
+      id: nextId.current++,
       title: title,
       body: body,
       createdAt: Date.now(),
